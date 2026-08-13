@@ -1,0 +1,33 @@
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int slow = -1; //since no guarantee of valid element
+
+        for(int fast=0; fast<nums.length; fast++){
+            if(nums[fast]!=val){
+                slow++;
+                nums[slow] = nums[fast];
+            }
+        }
+        return slow+1;
+
+    }
+}
+
+
+/*
+              Remove Duplicates
+            ↓
+            First element guaranteed valid
+            ↓
+            slow = 0
+            fast = 1
+            
+            
+            Remove Element
+            ↓
+            First element NOT guaranteed valid
+            ↓
+            slow = -1
+            fast = 0
+
+*/
