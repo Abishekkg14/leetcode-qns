@@ -1,0 +1,35 @@
+class Solution {
+
+    public int best(int[] nums, int[] memo, int i, int end){
+
+        if(i>end){
+            return 0; //base case-1
+        }
+
+        if(memo[i]!=-1){
+            return memo[i]; //check memo 
+        }
+
+        int take = nums[i] + best(nums,memo,i+2,end);
+        int skip = best(nums,memo,i+1,end);
+
+        memo[i] = Math.max(take,skip);
+
+        return memo[i];
+    }
+
+    public int rob(int[] nums) {
+        
+        int n = nums.length; int[] memo = new int[n]; 
+
+        if(n==1){return nums[0];}
+        Arrays.fill(memo,-1);
+        int case1 = best(nums,memo,0,n-2); //exclude the last house
+
+        Arrays.fill(memo,-1);
+        int case2 = best(nums,memo,1,n-1); //exclude the first house
+
+        return Math.max(case1,case2);
+
+    }
+}
