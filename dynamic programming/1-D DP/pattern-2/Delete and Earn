@@ -1,0 +1,43 @@
+//the decision depends on value so we need to group them by value first (called pre-processing) here 
+
+class Solution {
+
+    public int best(int[] points , int i, int[] memo,int max){
+
+        if(i>max){
+            return 0;
+        }
+
+        if(memo[i]!=-1){
+            return memo[i];
+        }
+
+        int take = points[i] + best(points,i+2,memo,max);
+        int skip  = best(points,i+1,memo,max);
+        int ans = Math.max(take,skip);
+
+        memo[i] = ans;
+
+        return memo[i];
+
+    }
+
+    public int deleteAndEarn(int[] nums) {
+        int max = 0; 
+
+        for(int num: nums){
+            max = Math.max(max,num);
+        }
+        
+        int[] points = new int[max+1]; int[] memo = new int[max+1]; Arrays.fill(memo,-1);
+
+        for(int num: nums){
+            points[num] += num;
+        }
+
+        int ans = best(points,0,memo,max);
+
+        return ans;
+
+    }
+}
