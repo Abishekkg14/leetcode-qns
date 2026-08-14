@@ -1,0 +1,32 @@
+//Top-down approach 
+
+class Solution {
+    public static int best(int[] nums, int i, int[] memo){
+        int n = nums.length;  
+        if(i>=n){
+            return 0; //base case
+        }
+
+        if(memo[i]!=-1){
+            return memo[i]; //memo check
+        }
+
+        int take = nums[i] + best(nums,i+2,memo);
+        int skip = best(nums,i+1,memo);
+
+        int ans = Math.max(take,skip); //ans is the max of both                                                    
+
+        memo[i] = ans; //store it 
+
+        return memo[i]; //return it
+
+    }
+
+    public int rob(int[] nums) {
+        int n = nums.length;  
+        int[] memo = new int[n]; Arrays.fill(memo,-1);
+        int ans = best(nums,0,memo);
+
+        return ans;
+    }
+}
