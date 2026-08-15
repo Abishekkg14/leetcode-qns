@@ -1,0 +1,40 @@
+//including empty subarray
+
+import java.util.*; 
+import java.io.*;  
+
+public class Solution { 
+
+    public static long best(int[] arr, int i, long[] memo){ 
+
+        if(i == 0){ 
+            memo[i] = arr[0]; 
+            return memo[i]; 
+        } 
+
+        if(memo[i] != Long.MIN_VALUE){ 
+            return memo[i]; 
+        } 
+
+        long take = arr[i]; 
+        long extend = arr[i] + best(arr, i - 1, memo); 
+        long ans = Math.max(take, extend); 
+
+        memo[i] = ans; 
+
+        return memo[i]; 
+    } 
+    
+    public static long maxSubarraySum(int[] arr, int n) { 
+        long[] memo = new long[n]; 
+        Arrays.fill(memo, Long.MIN_VALUE); 
+
+        long ans = 0; //only change is here and the long thing
+
+        for (int i = 0; i < n; i++) { 
+            ans = Math.max(ans, best(arr, i, memo)); 
+        } 
+
+        return ans; 
+    } 
+}
