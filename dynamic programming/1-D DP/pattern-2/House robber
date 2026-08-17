@@ -30,3 +30,31 @@ class Solution {
         return ans;
     }
 }
+
+.......................................................................................................
+
+//bottom up method
+
+import java.util.*;
+
+public class Solution {
+
+	public static int maxMoneyLooted(int[] houses) {
+
+		int n = houses.length; 
+		
+		if(n==0){return 0;}
+
+		int[] dp = new int[n+2]; int ans = 1;
+		
+		for(int i=n-1; i>=0; i--){
+			int take = houses[i] + dp[i+2];
+			int skip = dp[i+1];
+			ans = Math.max(take,skip);
+			dp[i] = ans;
+		}
+
+		return dp[0];
+		
+	}
+}
