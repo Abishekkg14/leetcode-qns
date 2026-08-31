@@ -1,0 +1,62 @@
+class Solution {
+
+public String reverseWords(String s) {
+
+    // Step 1: Remove leading and trailing spaces
+    s = s.trim();
+
+    // Step 2: Split into words (removes multiple spaces between words)
+    String[] words = s.split("\\s+");
+
+    // Step 3: Join words with exactly one space
+    s = String.join(" ", words);
+
+    // Step 4: Convert String to character array
+    char[] arr = s.toCharArray();
+
+    // Step 5: Reverse the entire array
+    int left = 0;
+    int right = arr.length - 1;
+
+    reverse(arr, left, right);
+
+
+    // Step 6: Reverse each individual word
+    left = 0;
+    right = 0;
+
+    while (right < arr.length) {
+
+        // Move right until space or end of array
+        while (right < arr.length && arr[right] != ' ') {
+            right++;
+        }
+
+        // Reverse the current word
+        reverse(arr, left, right - 1);
+
+        // Move to the next word
+        right++;
+        left = right;
+    }
+
+
+    // Step 7: Convert char array back to String
+    return new String(arr);
+}
+
+
+// Helper method to reverse characters between left and right
+private void reverse(char[] arr, int left, int right) {
+
+    while (left < right) {
+        char temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+
+        left++;
+        right--;
+    }
+}
+
+}
